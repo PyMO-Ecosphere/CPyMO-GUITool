@@ -272,7 +272,6 @@
             this.button9.TabIndex = 1;
             this.button9.Text = "打包";
             this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.packButton_Click);
             // 
             // filesToPack
             // 
