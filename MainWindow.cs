@@ -309,5 +309,36 @@ namespace CPyMO_GUITool
                     });
             }
         }
+
+        private void packButton_Clicked(object sender, EventArgs e)
+        {
+            if (gameConfig != null) savePakFileDialog.InitialDirectory = gameConfig.GameDir;
+
+            var filesToPack = new List<string>();
+            foreach (FilesToPack f in this.filesToPack.Items)
+                filesToPack.Add(f.Filename.Replace('\\', '/'));
+
+            if (filesToPack.Count <= 0)
+            {
+                Utils.MsgBox("没有文件需要被打包。");
+                return;
+            }
+
+            if (savePakFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var listFile = Path.GetTempFileName();
+                File.WriteAllLines(listFile, filesToPack.Distinct(), Encoding.Default);
+
+                RunProcessAndWait(
+                    Utils.CPyMOToolExecutable,
+                    "pack \"" + savePakFileDialog.FileName + "\" --file-list \"" + listFile + "\"",
+                    exitCode =>
+                    {
+                        File.Delete(listFile);
+                        if (exitCode == 0) Utils.MsgBox("打包成功！");
+                        else Utils.MsgBox("打包失败！错误代码：" + exitCode, MessageBoxIcon.Error);
+                    });
+            }
+        }
     }
 }

@@ -62,6 +62,7 @@
             this.addFileToPackDialog = new System.Windows.Forms.OpenFileDialog();
             this.openPakFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.outToFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.savePakFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gameIconView)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -272,6 +273,7 @@
             this.button9.TabIndex = 1;
             this.button9.Text = "打包";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.packButton_Clicked);
             // 
             // filesToPack
             // 
@@ -429,6 +431,12 @@
             // 
             this.outToFolderDialog.Description = "输出到";
             // 
+            // savePakFileDialog
+            // 
+            this.savePakFileDialog.DefaultExt = "pak";
+            this.savePakFileDialog.Filter = "PyMO PAK包|*.pak";
+            this.savePakFileDialog.Title = "保存pak包到";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
@@ -493,5 +501,6 @@
         private System.Windows.Forms.TextBox unpackFileExtTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FolderBrowserDialog outToFolderDialog;
+        private System.Windows.Forms.SaveFileDialog savePakFileDialog;
     }
 }
