@@ -16,7 +16,7 @@ namespace CPyMO_GUITool
     {
         GameConfig gameConfig;
 
-        void RefreshUI()
+        void refreshUI()
         {
             packFileToUnpakBox.Items.Clear();
 
@@ -99,6 +99,7 @@ namespace CPyMO_GUITool
                     + Environment.NewLine
                     + "目标分辨率：" + spec.Width + "x" + spec.Height;
             };
+
             convSpecSelectComboBox.SelectedIndex = 0;
 
             gameInfoPanel.DragEnter += (_0, e) =>
@@ -123,7 +124,18 @@ namespace CPyMO_GUITool
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
                 foreach (var f in files)
-                    filesToPack.Items.Add(new FilesToPack() { Filename = f });
+                {
+                    if (File.Exists(f))
+                        filesToPack.Items.Add(new FilesToPack() { Filename = f });
+                    else if (Directory.Exists(f))
+                    {
+                        var fs = Directory.GetFiles(f, "*", SearchOption.AllDirectories);
+                        foreach (var ff in fs)
+                            filesToPack.Items.Add(new FilesToPack() { Filename = ff });
+                    }
+                }
+
+                refreshPackFilesCount();
             };
 
             packFileToUnpakBox.SelectionChangeCommitted += (_0, _1) =>
@@ -162,7 +174,7 @@ namespace CPyMO_GUITool
                     g.GetFormat(Path.GetFileNameWithoutExtension(packFileToUnpakBox.Text));
             };
 
-            RefreshUI();
+            refreshUI();
         }
 
         void openPyMOGame(string dir)
@@ -175,7 +187,7 @@ namespace CPyMO_GUITool
             }
 
             this.gameConfig = gameConfig;
-            RefreshUI();
+            refreshUI();
         }
 
         private void selectGameButton_Clicked(object sender, EventArgs e)
@@ -208,7 +220,8 @@ namespace CPyMO_GUITool
                 foreach (var f in addFileToPackDialog.FileNames)
                     filesToPack.Items.Add(new FilesToPack() { Filename = f });
             }
-            
+
+            refreshPackFilesCount();
         }
 
         private void removeFromFilesToPackListButton_Click(object sender, EventArgs e)
@@ -220,19 +233,31 @@ namespace CPyMO_GUITool
             foreach (var s in selected)
                 filesToPack.Items.Remove(s);
 
+            refreshPackFilesCount();
         }
 
         private void clearFilesToPackListButton_Click(object sender, EventArgs e)
         {
             filesToPack.Items.Clear();
+            refreshPackFilesCount();
         }
 
         private void startGameButton_Click(object sender, EventArgs e)
         {
-            RunProcessAndWait(Utils.CPyMOExecutable, "", _ => { }, true, gameConfig.GameDir);
+            runProcessAndWait(Utils.CPyMOExecutable, "", _ => { }, true, gameConfig.GameDir);
         }
 
-        void RunProcessAndWait(
+        void refreshPackFilesCount()
+        {
+            long bytes = 0;
+            foreach (var i in filesToPack.Items)
+                bytes += new FileInfo(((FilesToPack)i).Filename).Length;
+
+            double mibs = (double)bytes / 1024.0 / 1024.0;
+            packFilesCountLabel.Text = filesToPack.Items.Count + "个文件，" + mibs.ToString("0.00") + "MiB";
+        }
+
+        void runProcessAndWait(
             string filename, string args, Action<int> onFinished, bool longTime = true, string workDir = "")
         {
             if (longTime) WindowState = FormWindowState.Minimized;
@@ -266,7 +291,7 @@ namespace CPyMO_GUITool
 
         private void genAlbumButton_Click(object sender, EventArgs e)
         {
-            RunProcessAndWait(
+            runProcessAndWait(
                 Utils.CPyMOToolExecutable,
                 "gen-album-cache \"" + gameConfig.GameDir + "\"",
                 exitCode =>
@@ -281,7 +306,7 @@ namespace CPyMO_GUITool
         {
             if (outToFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                RunProcessAndWait(
+                runProcessAndWait(
                     Utils.CPyMOToolExecutable,
                     "strip \"" + gameConfig.GameDir + "\" " + "\"" + outToFolderDialog.SelectedPath + "\"",
                     exitCode =>
@@ -296,7 +321,7 @@ namespace CPyMO_GUITool
         {
             if (outToFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                RunProcessAndWait(
+                runProcessAndWait(
                     Utils.CPyMOToolExecutable,
                     "convert " + convSpecSelectComboBox.Text + " \"" + gameConfig.GameDir + "\" \"" + outToFolderDialog.SelectedPath + "\"",
                     exitCode =>
@@ -326,7 +351,7 @@ namespace CPyMO_GUITool
 
             if (outToFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                RunProcessAndWait(
+                runProcessAndWait(
                     Utils.CPyMOToolExecutable,
                     "unpack \"" + pakPath + "\" " + ext + " \"" + outToFolderDialog.SelectedPath + "\"",
                     exitCode =>
@@ -356,7 +381,7 @@ namespace CPyMO_GUITool
                 var listFile = Path.GetTempFileName();
                 File.WriteAllLines(listFile, filesToPack.Distinct(), Encoding.Default);
 
-                RunProcessAndWait(
+                runProcessAndWait(
                     Utils.CPyMOToolExecutable,
                     "pack \"" + savePakFileDialog.FileName + "\" --file-list \"" + listFile + "\"",
                     exitCode =>

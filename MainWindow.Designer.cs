@@ -63,6 +63,7 @@
             this.openPakFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.outToFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.savePakFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.packFilesCountLabel = new System.Windows.Forms.Label();
             this.gameInfoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gameIconView)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -218,6 +219,7 @@
             // 
             // packTab
             // 
+            this.packTab.Controls.Add(this.packFilesCountLabel);
             this.packTab.Controls.Add(this.button2);
             this.packTab.Controls.Add(this.button11);
             this.packTab.Controls.Add(this.button10);
@@ -267,10 +269,10 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(471, 229);
+            this.button9.Location = new System.Drawing.Point(549, 229);
             this.button9.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(169, 40);
+            this.button9.Size = new System.Drawing.Size(91, 40);
             this.button9.TabIndex = 1;
             this.button9.Text = "打包";
             this.button9.UseVisualStyleBackColor = true;
@@ -439,6 +441,15 @@
             this.savePakFileDialog.Filter = "PyMO PAK包|*.pak";
             this.savePakFileDialog.Title = "保存pak包到";
             // 
+            // packFilesCountLabel
+            // 
+            this.packFilesCountLabel.Location = new System.Drawing.Point(279, 239);
+            this.packFilesCountLabel.Name = "packFilesCountLabel";
+            this.packFilesCountLabel.Size = new System.Drawing.Size(261, 23);
+            this.packFilesCountLabel.TabIndex = 5;
+            this.packFilesCountLabel.Text = "0个文件，0 MiB";
+            this.packFilesCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
@@ -504,5 +515,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FolderBrowserDialog outToFolderDialog;
         private System.Windows.Forms.SaveFileDialog savePakFileDialog;
+        private System.Windows.Forms.Label packFilesCountLabel;
     }
 }
