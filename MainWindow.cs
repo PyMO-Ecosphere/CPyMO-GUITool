@@ -199,5 +199,115 @@ namespace CPyMO_GUITool
         {
             filesToPack.Items.Clear();
         }
+
+        private void startGameButton_Click(object sender, EventArgs e)
+        {
+            RunProcessAndWait(Utils.CPyMOExecutable, "", _ => { }, true, gameConfig.GameDir);
+        }
+
+        void RunProcessAndWait(
+            string filename, string args, Action<int> onFinished, bool longTime = true, string workDir = "")
+        {
+            if (longTime) WindowState = FormWindowState.Minimized;
+
+            var startInfo = new System.Diagnostics.ProcessStartInfo()
+            {
+                FileName = filename,
+                Arguments = args,
+                WorkingDirectory = workDir
+            };
+
+            var prc = new System.Diagnostics.Process()
+            {
+                StartInfo = startInfo,
+                EnableRaisingEvents = true
+            };
+
+            prc.Exited += (_0, _1) =>
+            {
+                Invoke(new Action(() =>
+                {
+                    onFinished(prc.ExitCode);
+                    Enabled = true;
+                    if (longTime) WindowState = FormWindowState.Normal;
+                }));
+            };
+
+            Enabled = false;
+            prc.Start();
+        }
+
+        private void genAlbumButton_Click(object sender, EventArgs e)
+        {
+            RunProcessAndWait(
+                Utils.CPyMOToolExecutable,
+                "gen-album-cache \"" + gameConfig.GameDir + "\"",
+                exitCode =>
+                {
+                    if (exitCode == 0) Utils.MsgBox("生成成功！");
+                    else Utils.MsgBox("生成失败！错误代码：" + exitCode, MessageBoxIcon.Error);
+                },
+                false);
+        }
+
+        private void stripButton_Click(object sender, EventArgs e)
+        {
+            if (outToFolderDialog.ShowDialog() == DialogResult.OK)
+            {
+                RunProcessAndWait(
+                    Utils.CPyMOToolExecutable,
+                    "strip \"" + gameConfig.GameDir + "\" " + "\"" + outToFolderDialog.SelectedPath + "\"",
+                    exitCode =>
+                    {
+                        if (exitCode == 0) Utils.MsgBox("精简成功！");
+                        else Utils.MsgBox("精简失败！错误代码：" + exitCode, MessageBoxIcon.Error);
+                    });
+            }
+        }
+
+        private void convertGameButton_Clicked(object sender, EventArgs e)
+        {
+            if (outToFolderDialog.ShowDialog() == DialogResult.OK)
+            {
+                RunProcessAndWait(
+                    Utils.CPyMOToolExecutable,
+                    "convert " + convSpecSelectComboBox.Text + " \"" + gameConfig.GameDir + "\" \"" + outToFolderDialog.SelectedPath + "\"",
+                    exitCode =>
+                    {
+                        if (exitCode == 0) Utils.MsgBox("转换完成！");
+                        else Utils.MsgBox("转换失败！错误代码：" + exitCode, MessageBoxIcon.Error);
+                    });
+            }
+        }
+
+        private void unpackButton_Clicked(object sender, EventArgs e)
+        {
+            var ext = unpackFileExtTextBox.Text;
+            var pakPath = packFileToUnpakBox.Text;
+
+            if (!File.Exists(pakPath))
+            {
+                Utils.MsgBox(pakPath + " 不存在！", MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!ext.StartsWith(".") || ext.Length < 2)
+            {
+                Utils.MsgBox("扩展名必须以.开头，并且至少有两个字符长。", MessageBoxIcon.Error);
+                return;
+            }
+
+            if (outToFolderDialog.ShowDialog() == DialogResult.OK)
+            {
+                RunProcessAndWait(
+                    Utils.CPyMOToolExecutable,
+                    "unpack \"" + pakPath + "\" " + ext + " \"" + outToFolderDialog.SelectedPath + "\"",
+                    exitCode =>
+                    {
+                        if (exitCode == 0) Utils.MsgBox("解包成功！");
+                        else Utils.MsgBox("解包失败！错误代码：" + exitCode, MessageBoxIcon.Error);
+                    });
+            }
+        }
     }
 }

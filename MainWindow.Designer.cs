@@ -48,6 +48,8 @@
             this.button9 = new System.Windows.Forms.Button();
             this.filesToPack = new System.Windows.Forms.ListBox();
             this.unpackTab = new System.Windows.Forms.TabPage();
+            this.unpackFileExtTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.button13 = new System.Windows.Forms.Button();
             this.packFileToUnpakBox = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -59,8 +61,7 @@
             this.openGameFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.addFileToPackDialog = new System.Windows.Forms.OpenFileDialog();
             this.openPakFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.label1 = new System.Windows.Forms.Label();
-            this.unpackFileExtTextBox = new System.Windows.Forms.TextBox();
+            this.outToFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gameIconView)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -77,27 +78,31 @@
             this.panel1.Controls.Add(this.gameTitleView);
             this.panel1.Controls.Add(this.gameIconView);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(17, 18);
+            this.panel1.Location = new System.Drawing.Point(31, 32);
+            this.panel1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(363, 57);
+            this.panel1.Size = new System.Drawing.Size(666, 100);
             this.panel1.TabIndex = 0;
             // 
             // startGameButton
             // 
             this.startGameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.startGameButton.Location = new System.Drawing.Point(261, 28);
+            this.startGameButton.Location = new System.Drawing.Point(478, 49);
+            this.startGameButton.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.startGameButton.Name = "startGameButton";
-            this.startGameButton.Size = new System.Drawing.Size(102, 22);
+            this.startGameButton.Size = new System.Drawing.Size(187, 38);
             this.startGameButton.TabIndex = 3;
             this.startGameButton.Text = "启动游戏";
             this.startGameButton.UseVisualStyleBackColor = true;
+            this.startGameButton.Click += new System.EventHandler(this.startGameButton_Click);
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(261, 0);
+            this.button1.Location = new System.Drawing.Point(478, 0);
+            this.button1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(102, 22);
+            this.button1.Size = new System.Drawing.Size(187, 38);
             this.button1.TabIndex = 2;
             this.button1.Text = "选择游戏";
             this.button1.UseVisualStyleBackColor = true;
@@ -107,11 +112,11 @@
             // 
             this.gameTitleView.AutoSize = true;
             this.gameTitleView.Dock = System.Windows.Forms.DockStyle.Left;
-            this.gameTitleView.Location = new System.Drawing.Point(57, 0);
+            this.gameTitleView.Location = new System.Drawing.Point(103, 0);
             this.gameTitleView.Margin = new System.Windows.Forms.Padding(0);
             this.gameTitleView.Name = "gameTitleView";
-            this.gameTitleView.Padding = new System.Windows.Forms.Padding(8, 4, 0, 0);
-            this.gameTitleView.Size = new System.Drawing.Size(97, 16);
+            this.gameTitleView.Padding = new System.Windows.Forms.Padding(15, 7, 0, 0);
+            this.gameTitleView.Size = new System.Drawing.Size(173, 28);
             this.gameTitleView.TabIndex = 1;
             this.gameTitleView.Text = "(尚未选择游戏)";
             // 
@@ -120,8 +125,9 @@
             this.gameIconView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.gameIconView.Dock = System.Windows.Forms.DockStyle.Left;
             this.gameIconView.Location = new System.Drawing.Point(0, 0);
+            this.gameIconView.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.gameIconView.Name = "gameIconView";
-            this.gameIconView.Size = new System.Drawing.Size(57, 57);
+            this.gameIconView.Size = new System.Drawing.Size(103, 100);
             this.gameIconView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.gameIconView.TabIndex = 0;
             this.gameIconView.TabStop = false;
@@ -133,10 +139,11 @@
             this.tabControl1.Controls.Add(this.unpackTab);
             this.tabControl1.Controls.Add(this.etcTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tabControl1.Location = new System.Drawing.Point(17, 82);
+            this.tabControl1.Location = new System.Drawing.Point(31, 143);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(363, 183);
+            this.tabControl1.Size = new System.Drawing.Size(666, 320);
             this.tabControl1.TabIndex = 4;
             // 
             // convertTab
@@ -146,10 +153,11 @@
             this.convertTab.Controls.Add(this.convSpecDescLabel);
             this.convertTab.Controls.Add(this.convSpecSelectComboBox);
             this.convertTab.Controls.Add(this.label3);
-            this.convertTab.Location = new System.Drawing.Point(4, 22);
+            this.convertTab.Location = new System.Drawing.Point(4, 31);
+            this.convertTab.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.convertTab.Name = "convertTab";
-            this.convertTab.Padding = new System.Windows.Forms.Padding(16);
-            this.convertTab.Size = new System.Drawing.Size(355, 157);
+            this.convertTab.Padding = new System.Windows.Forms.Padding(29, 28, 29, 28);
+            this.convertTab.Size = new System.Drawing.Size(658, 285);
             this.convertTab.TabIndex = 1;
             this.convertTab.Text = "转换";
             this.convertTab.UseVisualStyleBackColor = true;
@@ -158,27 +166,31 @@
             // 
             this.ffmpegNotFoundLabel.AutoSize = true;
             this.ffmpegNotFoundLabel.ForeColor = System.Drawing.Color.IndianRed;
-            this.ffmpegNotFoundLabel.Location = new System.Drawing.Point(3, 130);
+            this.ffmpegNotFoundLabel.Location = new System.Drawing.Point(6, 228);
+            this.ffmpegNotFoundLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.ffmpegNotFoundLabel.Name = "ffmpegNotFoundLabel";
-            this.ffmpegNotFoundLabel.Size = new System.Drawing.Size(185, 24);
+            this.ffmpegNotFoundLabel.Size = new System.Drawing.Size(325, 42);
             this.ffmpegNotFoundLabel.TabIndex = 7;
             this.ffmpegNotFoundLabel.Text = "找不到FFmpeg\r\n目标平台可能无法播放音频和视频";
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(255, 122);
+            this.button8.Location = new System.Drawing.Point(468, 214);
+            this.button8.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(97, 32);
+            this.button8.Size = new System.Drawing.Size(178, 56);
             this.button8.TabIndex = 6;
             this.button8.Text = "转换";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.convertGameButton_Clicked);
             // 
             // convSpecDescLabel
             // 
             this.convSpecDescLabel.AutoSize = true;
-            this.convSpecDescLabel.Location = new System.Drawing.Point(107, 41);
+            this.convSpecDescLabel.Location = new System.Drawing.Point(196, 72);
+            this.convSpecDescLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.convSpecDescLabel.Name = "convSpecDescLabel";
-            this.convSpecDescLabel.Size = new System.Drawing.Size(53, 12);
+            this.convSpecDescLabel.Size = new System.Drawing.Size(94, 21);
             this.convSpecDescLabel.TabIndex = 5;
             this.convSpecDescLabel.Text = "平台说明";
             // 
@@ -186,16 +198,18 @@
             // 
             this.convSpecSelectComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.convSpecSelectComboBox.FormattingEnabled = true;
-            this.convSpecSelectComboBox.Location = new System.Drawing.Point(109, 18);
+            this.convSpecSelectComboBox.Location = new System.Drawing.Point(200, 32);
+            this.convSpecSelectComboBox.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.convSpecSelectComboBox.Name = "convSpecSelectComboBox";
-            this.convSpecSelectComboBox.Size = new System.Drawing.Size(138, 20);
+            this.convSpecSelectComboBox.Size = new System.Drawing.Size(250, 29);
             this.convSpecSelectComboBox.TabIndex = 4;
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(3, 16);
+            this.label3.Location = new System.Drawing.Point(6, 28);
+            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 23);
+            this.label3.Size = new System.Drawing.Size(183, 40);
             this.label3.TabIndex = 1;
             this.label3.Text = "目标平台：";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -207,19 +221,21 @@
             this.packTab.Controls.Add(this.button10);
             this.packTab.Controls.Add(this.button9);
             this.packTab.Controls.Add(this.filesToPack);
-            this.packTab.Location = new System.Drawing.Point(4, 22);
+            this.packTab.Location = new System.Drawing.Point(4, 31);
+            this.packTab.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.packTab.Name = "packTab";
-            this.packTab.Padding = new System.Windows.Forms.Padding(3);
-            this.packTab.Size = new System.Drawing.Size(355, 157);
+            this.packTab.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.packTab.Size = new System.Drawing.Size(658, 285);
             this.packTab.TabIndex = 3;
             this.packTab.Text = "打包";
             this.packTab.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(104, 131);
+            this.button2.Location = new System.Drawing.Point(191, 229);
+            this.button2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(43, 23);
+            this.button2.Size = new System.Drawing.Size(79, 40);
             this.button2.TabIndex = 4;
             this.button2.Text = "清空";
             this.button2.UseVisualStyleBackColor = true;
@@ -227,9 +243,10 @@
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(55, 131);
+            this.button11.Location = new System.Drawing.Point(101, 229);
+            this.button11.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(43, 23);
+            this.button11.Size = new System.Drawing.Size(79, 40);
             this.button11.TabIndex = 3;
             this.button11.Text = "移除";
             this.button11.UseVisualStyleBackColor = true;
@@ -237,9 +254,10 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(6, 131);
+            this.button10.Location = new System.Drawing.Point(11, 229);
+            this.button10.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(43, 23);
+            this.button10.Size = new System.Drawing.Size(79, 40);
             this.button10.TabIndex = 2;
             this.button10.Text = "添加";
             this.button10.UseVisualStyleBackColor = true;
@@ -247,22 +265,25 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(257, 131);
+            this.button9.Location = new System.Drawing.Point(471, 229);
+            this.button9.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(92, 23);
+            this.button9.Size = new System.Drawing.Size(169, 40);
             this.button9.TabIndex = 1;
             this.button9.Text = "打包";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.packButton_Click);
             // 
             // filesToPack
             // 
             this.filesToPack.Dock = System.Windows.Forms.DockStyle.Top;
             this.filesToPack.FormattingEnabled = true;
-            this.filesToPack.ItemHeight = 12;
-            this.filesToPack.Location = new System.Drawing.Point(3, 3);
+            this.filesToPack.ItemHeight = 21;
+            this.filesToPack.Location = new System.Drawing.Point(6, 5);
+            this.filesToPack.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.filesToPack.Name = "filesToPack";
             this.filesToPack.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.filesToPack.Size = new System.Drawing.Size(349, 124);
+            this.filesToPack.Size = new System.Drawing.Size(646, 214);
             this.filesToPack.TabIndex = 0;
             // 
             // unpackTab
@@ -272,36 +293,60 @@
             this.unpackTab.Controls.Add(this.button13);
             this.unpackTab.Controls.Add(this.packFileToUnpakBox);
             this.unpackTab.Controls.Add(this.label6);
-            this.unpackTab.Location = new System.Drawing.Point(4, 22);
+            this.unpackTab.Location = new System.Drawing.Point(4, 31);
+            this.unpackTab.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.unpackTab.Name = "unpackTab";
-            this.unpackTab.Padding = new System.Windows.Forms.Padding(16);
-            this.unpackTab.Size = new System.Drawing.Size(355, 157);
+            this.unpackTab.Padding = new System.Windows.Forms.Padding(29, 28, 29, 28);
+            this.unpackTab.Size = new System.Drawing.Size(658, 285);
             this.unpackTab.TabIndex = 4;
             this.unpackTab.Text = "解包";
             this.unpackTab.UseVisualStyleBackColor = true;
             // 
+            // unpackFileExtTextBox
+            // 
+            this.unpackFileExtTextBox.Location = new System.Drawing.Point(248, 80);
+            this.unpackFileExtTextBox.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.unpackFileExtTextBox.Name = "unpackFileExtTextBox";
+            this.unpackFileExtTextBox.Size = new System.Drawing.Size(180, 31);
+            this.unpackFileExtTextBox.TabIndex = 9;
+            this.unpackFileExtTextBox.Text = ".png";
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(35, 86);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(202, 40);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "解包后的扩展名：";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(255, 122);
+            this.button13.Location = new System.Drawing.Point(468, 214);
+            this.button13.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(97, 32);
+            this.button13.Size = new System.Drawing.Size(178, 56);
             this.button13.TabIndex = 7;
             this.button13.Text = "解包";
             this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.unpackButton_Clicked);
             // 
             // packFileToUnpakBox
             // 
             this.packFileToUnpakBox.FormattingEnabled = true;
-            this.packFileToUnpakBox.Location = new System.Drawing.Point(135, 13);
+            this.packFileToUnpakBox.Location = new System.Drawing.Point(248, 23);
+            this.packFileToUnpakBox.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.packFileToUnpakBox.Name = "packFileToUnpakBox";
-            this.packFileToUnpakBox.Size = new System.Drawing.Size(204, 20);
+            this.packFileToUnpakBox.Size = new System.Drawing.Size(371, 29);
             this.packFileToUnpakBox.TabIndex = 1;
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(19, 16);
+            this.label6.Location = new System.Drawing.Point(35, 28);
+            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(110, 23);
+            this.label6.Size = new System.Drawing.Size(202, 40);
             this.label6.TabIndex = 0;
             this.label6.Text = "要解包的pak文件：";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -312,37 +357,43 @@
             this.etcTab.Controls.Add(this.genAlbumButton);
             this.etcTab.Controls.Add(this.createDesktopShortcutButton);
             this.etcTab.Controls.Add(this.openGameDirButton);
-            this.etcTab.Location = new System.Drawing.Point(4, 22);
+            this.etcTab.Location = new System.Drawing.Point(4, 31);
+            this.etcTab.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.etcTab.Name = "etcTab";
-            this.etcTab.Padding = new System.Windows.Forms.Padding(16);
-            this.etcTab.Size = new System.Drawing.Size(355, 157);
+            this.etcTab.Padding = new System.Windows.Forms.Padding(29, 28, 29, 28);
+            this.etcTab.Size = new System.Drawing.Size(658, 285);
             this.etcTab.TabIndex = 5;
             this.etcTab.Text = "杂项";
             this.etcTab.UseVisualStyleBackColor = true;
             // 
             // stripButton
             // 
-            this.stripButton.Location = new System.Drawing.Point(19, 106);
+            this.stripButton.Location = new System.Drawing.Point(35, 186);
+            this.stripButton.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.stripButton.Name = "stripButton";
-            this.stripButton.Size = new System.Drawing.Size(124, 23);
+            this.stripButton.Size = new System.Drawing.Size(227, 40);
             this.stripButton.TabIndex = 3;
             this.stripButton.Text = "生成精简版本";
             this.stripButton.UseVisualStyleBackColor = true;
+            this.stripButton.Click += new System.EventHandler(this.stripButton_Click);
             // 
             // genAlbumButton
             // 
-            this.genAlbumButton.Location = new System.Drawing.Point(19, 77);
+            this.genAlbumButton.Location = new System.Drawing.Point(35, 135);
+            this.genAlbumButton.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.genAlbumButton.Name = "genAlbumButton";
-            this.genAlbumButton.Size = new System.Drawing.Size(124, 23);
+            this.genAlbumButton.Size = new System.Drawing.Size(227, 40);
             this.genAlbumButton.TabIndex = 2;
             this.genAlbumButton.Text = "生成相册界面缓存";
             this.genAlbumButton.UseVisualStyleBackColor = true;
+            this.genAlbumButton.Click += new System.EventHandler(this.genAlbumButton_Click);
             // 
             // createDesktopShortcutButton
             // 
-            this.createDesktopShortcutButton.Location = new System.Drawing.Point(19, 48);
+            this.createDesktopShortcutButton.Location = new System.Drawing.Point(35, 84);
+            this.createDesktopShortcutButton.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.createDesktopShortcutButton.Name = "createDesktopShortcutButton";
-            this.createDesktopShortcutButton.Size = new System.Drawing.Size(124, 23);
+            this.createDesktopShortcutButton.Size = new System.Drawing.Size(227, 40);
             this.createDesktopShortcutButton.TabIndex = 1;
             this.createDesktopShortcutButton.Text = "创建桌面快捷方式";
             this.createDesktopShortcutButton.UseVisualStyleBackColor = true;
@@ -350,9 +401,10 @@
             // 
             // openGameDirButton
             // 
-            this.openGameDirButton.Location = new System.Drawing.Point(19, 19);
+            this.openGameDirButton.Location = new System.Drawing.Point(35, 33);
+            this.openGameDirButton.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.openGameDirButton.Name = "openGameDirButton";
-            this.openGameDirButton.Size = new System.Drawing.Size(124, 23);
+            this.openGameDirButton.Size = new System.Drawing.Size(227, 40);
             this.openGameDirButton.TabIndex = 0;
             this.openGameDirButton.Text = "打开游戏文件夹";
             this.openGameDirButton.UseVisualStyleBackColor = true;
@@ -374,36 +426,23 @@
             this.openPakFileDialog.Filter = "PyMO PAK包|*.pak";
             this.openPakFileDialog.Title = "选择要解包的包文件";
             // 
-            // label1
+            // outToFolderDialog
             // 
-            this.label1.Location = new System.Drawing.Point(19, 49);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 23);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "解包后的扩展名：";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // unpackFileExtTextBox
-            // 
-            this.unpackFileExtTextBox.Location = new System.Drawing.Point(135, 46);
-            this.unpackFileExtTextBox.Name = "unpackFileExtTextBox";
-            this.unpackFileExtTextBox.Size = new System.Drawing.Size(100, 21);
-            this.unpackFileExtTextBox.TabIndex = 9;
-            this.unpackFileExtTextBox.Text = ".png";
+            this.outToFolderDialog.Description = "输出到";
             // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(397, 283);
+            this.ClientSize = new System.Drawing.Size(728, 495);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "MainWindow";
-            this.Padding = new System.Windows.Forms.Padding(17, 18, 17, 18);
+            this.Padding = new System.Windows.Forms.Padding(31, 32, 31, 32);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CPyMO GUI Tool";
             this.panel1.ResumeLayout(false);
@@ -454,5 +493,6 @@
         private System.Windows.Forms.OpenFileDialog openPakFileDialog;
         private System.Windows.Forms.TextBox unpackFileExtTextBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.FolderBrowserDialog outToFolderDialog;
     }
 }
