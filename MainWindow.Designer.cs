@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.gameInfoPanel = new System.Windows.Forms.Panel();
             this.startGameButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.gameTitleView = new System.Windows.Forms.Label();
@@ -63,7 +63,7 @@
             this.openPakFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.outToFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.savePakFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.panel1.SuspendLayout();
+            this.gameInfoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gameIconView)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.convertTab.SuspendLayout();
@@ -72,18 +72,19 @@
             this.etcTab.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
+            // gameInfoPanel
             // 
-            this.panel1.Controls.Add(this.startGameButton);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.gameTitleView);
-            this.panel1.Controls.Add(this.gameIconView);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(31, 32);
-            this.panel1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(666, 100);
-            this.panel1.TabIndex = 0;
+            this.gameInfoPanel.AllowDrop = true;
+            this.gameInfoPanel.Controls.Add(this.startGameButton);
+            this.gameInfoPanel.Controls.Add(this.button1);
+            this.gameInfoPanel.Controls.Add(this.gameTitleView);
+            this.gameInfoPanel.Controls.Add(this.gameIconView);
+            this.gameInfoPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gameInfoPanel.Location = new System.Drawing.Point(31, 32);
+            this.gameInfoPanel.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.gameInfoPanel.Name = "gameInfoPanel";
+            this.gameInfoPanel.Size = new System.Drawing.Size(666, 100);
+            this.gameInfoPanel.TabIndex = 0;
             // 
             // startGameButton
             // 
@@ -277,6 +278,7 @@
             // 
             // filesToPack
             // 
+            this.filesToPack.AllowDrop = true;
             this.filesToPack.Dock = System.Windows.Forms.DockStyle.Top;
             this.filesToPack.FormattingEnabled = true;
             this.filesToPack.ItemHeight = 21;
@@ -443,7 +445,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(728, 495);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.gameInfoPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -452,8 +454,8 @@
             this.Padding = new System.Windows.Forms.Padding(31, 32, 31, 32);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CPyMO GUI Tool";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.gameInfoPanel.ResumeLayout(false);
+            this.gameInfoPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gameIconView)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.convertTab.ResumeLayout(false);
@@ -468,7 +470,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel gameInfoPanel;
         private System.Windows.Forms.PictureBox gameIconView;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label gameTitleView;

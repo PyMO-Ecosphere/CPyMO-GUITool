@@ -101,6 +101,31 @@ namespace CPyMO_GUITool
             };
             convSpecSelectComboBox.SelectedIndex = 0;
 
+            gameInfoPanel.DragEnter += (_0, e) =>
+            {
+                e.Effect = DragDropEffects.Link;
+            };
+
+            gameInfoPanel.DragDrop += (_0, e) =>
+            {
+                string[] dirs = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+                var dir = dirs.FirstOrDefault();
+                if (dir != null)
+                    openPyMOGame(dir);
+            };
+
+            filesToPack.DragEnter += (_0, e) =>
+            {
+                e.Effect = DragDropEffects.Copy | DragDropEffects.Scroll;
+            };
+
+            filesToPack.DragDrop += (_, e) =>
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+                foreach (var f in files)
+                    filesToPack.Items.Add(new FilesToPack() { Filename = f });
+            };
+
             packFileToUnpakBox.SelectionChangeCommitted += (_0, _1) =>
             {
                 if (packFileToUnpakBox.SelectedItem == null) return;
@@ -140,21 +165,23 @@ namespace CPyMO_GUITool
             RefreshUI();
         }
 
+        void openPyMOGame(string dir)
+        {
+            var gameConfig = GameConfig.FromGameDir(dir);
+            if (gameConfig == null)
+            {
+                Utils.MsgBox(dir + " 不是有效的pymo游戏。", MessageBoxIcon.Error);
+                return;
+            }
+
+            this.gameConfig = gameConfig;
+            RefreshUI();
+        }
+
         private void selectGameButton_Clicked(object sender, EventArgs e)
         {
             if (openGameFolderDialog.ShowDialog() == DialogResult.OK)
-            {
-                var dir = openGameFolderDialog.SelectedPath;
-                var gameConfig = GameConfig.FromGameDir(dir);
-                if (gameConfig == null) 
-                {
-                    Utils.MsgBox(dir + " 不是有效的pymo游戏。", MessageBoxIcon.Error);
-                    return;
-                }
-
-                this.gameConfig = gameConfig;
-                RefreshUI();
-            }
+                openPyMOGame(openGameFolderDialog.SelectedPath);
         }
 
         private void openGameDirButton_Click(object sender, EventArgs e)
