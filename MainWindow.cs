@@ -151,6 +151,12 @@ namespace CPyMO_GUITool
                             packFileToUnpakBox.Text = openPakFileDialog.FileName;
                         }));
                     }
+                    else
+                    {
+                        var orgText = packFileToUnpakBox.Text;
+                        BeginInvoke(new Action(() =>
+                            packFileToUnpakBox.Text = orgText));
+                    }
                 }
                 else
                 {
@@ -166,12 +172,16 @@ namespace CPyMO_GUITool
 
             packFileToUnpakBox.TextChanged += (_0, _1) =>
             {
-                var assDir = Path.GetDirectoryName(packFileToUnpakBox.Text);
-                GameConfig g = GameConfig.FromGameDir(Path.Combine(assDir, ".."));
-                if (g == null) return;
+                try
+                {
+                    var assDir = Path.GetDirectoryName(packFileToUnpakBox.Text);
+                    GameConfig g = GameConfig.FromGameDir(Path.Combine(assDir, ".."));
+                    if (g == null) return;
 
-                unpackFileExtTextBox.Text = 
-                    g.GetFormat(Path.GetFileNameWithoutExtension(packFileToUnpakBox.Text));
+                    unpackFileExtTextBox.Text =
+                        g.GetFormat(Path.GetFileNameWithoutExtension(packFileToUnpakBox.Text));
+                }
+                catch { }
             };
 
             refreshUI();
@@ -279,9 +289,9 @@ namespace CPyMO_GUITool
             {
                 Invoke(new Action(() =>
                 {
+                    if (longTime) WindowState = FormWindowState.Normal;
                     onFinished(prc.ExitCode);
                     Enabled = true;
-                    if (longTime) WindowState = FormWindowState.Normal;
                 }));
             };
 

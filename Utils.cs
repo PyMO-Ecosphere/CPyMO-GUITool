@@ -21,7 +21,8 @@ static class Utils
         var exeSuffix = ".exe";
         var filename = exeName + exeSuffix;
 
-        if (File.Exists(filename)) return filename;
+        var cwdFile = Path.Combine(Path.GetFullPath(filename));
+        if (File.Exists(cwdFile)) return cwdFile;
 
         foreach (var dir in path)
         {
