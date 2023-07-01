@@ -31,6 +31,8 @@ namespace CPyMO_GUITool
 
                 foreach (Control c in etcTab.Controls)
                     c.Enabled = false;
+
+                gameDetailsInfoPanel.Visible = false;
             }
             else
             {
@@ -55,6 +57,35 @@ namespace CPyMO_GUITool
                 addPackageNameToPackFileToUnpakBox("chara");
                 addPackageNameToPackFileToUnpakBox("se");
                 addPackageNameToPackFileToUnpakBox("voice");
+
+                gameResolutionLabel.Text = gameConfig.ImageSize.Item1 + "x" + gameConfig.ImageSize.Item2;
+                long gameSize = 0;
+                foreach (var i in Directory.GetFiles(gameConfig.GameDir, "*", SearchOption.AllDirectories))
+                    gameSize += new FileInfo(i).Length;
+                gameSizeLabel.Text = ((double)gameSize / 1024.0 / 1024.0).ToString("0.00") + "MiB";
+                switch (gameConfig.GamePlatform.ToLower())
+                {
+                    case "s60v3":
+                    case "s60v5":
+                        symbianLabel.Visible = true;
+                        symbianTitleLabel.Visible = true;
+                        symbianLabel.Text = gameConfig.GamePlatform.ToLower();
+                        break;
+                    case null:
+                    case "":
+                    case "pygame":
+                        symbianLabel.Visible = false;
+                        symbianTitleLabel.Visible = false;
+                        break;
+                    default:
+                        Utils.MsgBox("不受支持的游戏平台：" + gameConfig.GamePlatform, MessageBoxIcon.Error);
+                        gameConfig = null;
+                        refreshUI();
+                        return;
+                };
+
+
+                gameDetailsInfoPanel.Visible = true;
             }
 
             packFileToUnpakBox.Items.Add("浏览...");
